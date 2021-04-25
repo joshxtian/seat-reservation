@@ -49,6 +49,7 @@ require_once "./php/function.php";
         <thead>
           <tr>
             <th scope="col">Email</th>
+            <th scope="col">Movie</th>
             <th scope="col">Row</th>
             <th scope="col">Quantity</th>
             <th scope="col">Schedule</th>
@@ -60,6 +61,7 @@ require_once "./php/function.php";
             <?php
             $view = new View;
             $view->viewReserved();
+            deleteReservation();
             ?>
         </tbody>
       </table>

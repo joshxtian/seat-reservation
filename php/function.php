@@ -37,6 +37,27 @@ function insertBooking()
 
 
 
+function deleteReservation()
+{
+  if (!empty($_GET['delete'])) {
+    $delete = new delete($_GET['delete']);
+    
+    if ($delete->deleteBooking()) {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Deleted Successfully
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+    } else {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong> Something went wrong
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+    }
+  }
+}
+
+
+
 
 
 

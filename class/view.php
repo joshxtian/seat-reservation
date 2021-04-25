@@ -36,7 +36,8 @@ class view extends config
     }
   }
 
-  public function viewMovieOption(){
+  public function viewMovieOption()
+  {
     $con = $this->con();
     $sql = "SELECT * FROM `movies`";
     $data = $con->prepare($sql);
@@ -45,9 +46,9 @@ class view extends config
     foreach ($result as $movie) {
       echo "<option value='$movie[id]'>$movie[title]</option>";
     }
-
   }
-  public function viewSchedOption(){
+  public function viewSchedOption()
+  {
     $con = $this->con();
     $sql = "SELECT * FROM `schedule`";
     $data = $con->prepare($sql);
@@ -56,9 +57,9 @@ class view extends config
     foreach ($result as $date) {
       echo "<option value='$date[id]'>$date[sched]</option>";
     }
-
   }
-  public function viewBranchOption(){
+  public function viewBranchOption()
+  {
     $con = $this->con();
     $sql = "SELECT * FROM `branch`";
     $data = $con->prepare($sql);
@@ -67,32 +68,30 @@ class view extends config
     foreach ($result as $branch) {
       echo "<option value='$branch[id]'>$branch[name]</option>";
     }
-
   }
-  public function viewReserved(){
+  public function viewReserved()
+  {
     $con = $this->con();
-    $sql = "SELECT e.email AS Email, e.type AS Row, e.quantity as quantity,m.title AS Movie, s.sched AS Schedule, b.name AS Branch FROM booking as e JOIN branch b ON e.branch_id=b.id JOIN movies m ON e.movie_id=m.id JOIN schedule s ON e.schedule_id=s.id";
+    $sql = "SELECT e.id AS id,e.email AS Email, e.row AS Row, e.quantity as quantity,m.title AS Movie, s.sched AS Schedule, b.name AS Branch FROM booking as e JOIN branch b ON e.branch_id=b.id JOIN movies m ON e.movie_id=m.id JOIN schedule s ON e.schedule_id=s.id";
     $data = $con->prepare($sql);
     $data->execute();
     $result = $data->fetchAll(PDO::FETCH_ASSOC);
     foreach ($result as $row) {
-    $date_time = new DateTime($row["Schedule"]);
-    $sched = $date_time->format('g:ia \o\n l jS F Y');
-     echo "<tr>";
-            echo "<td>$row[Email]</td>";
-            echo "<td>$row[Row]</td>";
-            echo "<td>$row[quantity]</td>";
-            echo "<td>$sched</td>";
-            echo "<td>$row[Branch]</td>";
-            echo
-              '<td>
-                <a  href="#" class="btn btn-success" style="background-color: red; color: white; border: none">
+      $date_time = new DateTime($row["Schedule"]);
+      $sched = $date_time->format('g:ia \o\n l jS F Y');
+      echo "<tr>";
+      echo "<td>$row[Email]</td>";
+      echo "<td>$row[Movie]</td>";
+      echo "<td>$row[Row]</td>";
+      echo "<td>$row[quantity]</td>";
+      echo "<td>$sched</td>";
+      echo "<td>$row[Branch]</td>";
+      echo '<td>';
+        echo "<a  href='admin.php?delete=$row[id]' class='btn btn-success'  style='background-color: red; color: white; border: none'>
                   Delete
-                </a>
-              </td>';
-
-         echo "</tr>";
+        </a>";
+      echo '</td>';
+      echo "</tr>";
     }
-
   }
 }
